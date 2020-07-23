@@ -11,10 +11,10 @@ Next Updates:
 
 ## Getting Started
 
-#### Before you start
+### Before you start
 Make sure that you have [GCC](https://gcc.gnu.org/) installed on your computer so that you can compile C files.
 
-#### Getting the code and understanding it
+### Getting the code and understanding it
 After, clone this repository to your computer
 ```
 git clone https://github.com/Johnson-Su/Steg-Hide.git
@@ -27,7 +27,7 @@ What documents you need to know:
 - `text_to_hide.txt` 
   - Type or paste any text into this file! The contents of this file will be written into the pixel data of steg.c
   
-#### Running the code
+### Running the code
 Go into the downloaded repository the following command in the terminal
 ```
 cd Steg-Hide
