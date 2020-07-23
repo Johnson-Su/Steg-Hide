@@ -1,0 +1,10 @@
+cover.pgm and steg.pgm are created by Mustafa Quraish
+(c) Mustafa Quraish, 2020
+
+imgUtils.c is from CSC A48 - Intro to Computer Science II, Summer 2020.
+https://utsc.calendar.utoronto.ca/course/csca48h3
+(c) Mustafa Quraish, 2020
+    CSC A48        , 2020
+
+text_to_hide.txt contents are from the Bee Movie
+(c) Bee Movie, 2020
