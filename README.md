@@ -43,7 +43,7 @@ Read the instructions that your terminal prints and enjoy!
 To start it is important to know that all data in a computer can be broken down into a series of 0's and 1's. For PGM images, each pixel is respresented with an `unsigned integer` that can be between 0 (black) and 255 (white). These numbers can be made out of a combination of 8 bits 
 > ex. 120 in binary is 0111 1000
 </br>
-This program changes the LSB (least significant bit) which for the example would be 0111 100[0] (the zero in brackets). This is because the color value shifts by so little that the human eye basically cannot detect the change. This allows the image to store about 1/8th of it's file size with hidden information</br></br>
+This program changes the LSB (least significant bit) which for the example would be 0111 100[0] (the zero in brackets). This is because this change shifts the color value of the pixel by so little that the human eye basically cannot detect the change. This allows the image to store about 1/8th of it's file size with hidden information</br></br>
 
 If we wanted to write in the character 'A' (0100 0001) into the image we would need 8 pixels as each pixel can store 1 bit of hidden data.
 
