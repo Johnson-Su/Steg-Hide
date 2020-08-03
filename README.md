@@ -4,6 +4,7 @@ Currently supports:
 -  LSB steganography on PGM (portable grey map) images
 
 Next Updates:
+- Read from an image folder and export data to seperate text documents
 - LSB steganography on BMP (bitmap) images
 - LSB steganography on PPM (portable pixmap) images
 - Implementing image edge detection to write data in the visual edges of an image to make it harder to detect hidden information
