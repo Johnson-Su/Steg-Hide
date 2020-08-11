@@ -2,7 +2,9 @@
 A C based program that uses steganography to hide text in images.</br></br>
 Currently supports:
 -  LSB steganography on PGM (portable grey map) images
-[]!(https://user-images.githubusercontent.com/65415367/89935158-f649d080-dbce-11ea-92f3-3eada270a460.png)
+
+![](https://user-images.githubusercontent.com/65415367/89935158-f649d080-dbce-11ea-92f3-3eada270a460.png)
+
 Next Updates:
 - Read from an image folder and export data to seperate text documents
 - LSB steganography on BMP (bitmap) images
