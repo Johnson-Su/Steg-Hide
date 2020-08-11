@@ -50,6 +50,8 @@ This program changes the LSB (least significant bit) which for the example would
 
 If we wanted to write in the character 'A' (0100 0001) into the image we would need 8 pixels as each pixel can store 1 bit of hidden data.
 
+The differences in the image can be found by either only showing the value of the LSB (pure_static), or moving the value of the LSB to a more significant bit (partial_static). The latter will preserve the qualities of the image so that the original image can still be been in the static
+
 ![](https://user-images.githubusercontent.com/65415367/89935191-06fa4680-dbcf-11ea-90fa-9dcb042567cb.png)
 
 ![](https://user-images.githubusercontent.com/65415367/89935193-08c40a00-dbcf-11ea-9b4d-34bf887e13d8.png)
