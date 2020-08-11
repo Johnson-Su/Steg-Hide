@@ -131,7 +131,7 @@ void decode(unsigned char inp[SIZEX][SIZEY]){
 void pic_static(unsigned char inp[SIZEX][SIZEY], unsigned char out[SIZEX][SIZEY]){
   /*Takes in an input image (inp) and changes pixels to only the last 2 lsb's*/
   for(int y=0; y<SIZEY; y++){//image traversal
-    for(int x=0; x<SIZEY; x++){
+    for(int x=0; x<SIZEX; x++){
       out[y][x]=inp[y][x];//set the pixel data
       static_finder(&out[y][x]);//keep only the last two LSB
     }
