@@ -22,6 +22,12 @@ void toggle_lsb(unsigned char *pixel){
   *pixel ^= (1 << 0);
 }
 
+void static_finder(unsigned char *pixel){
+  int lsb;
+  lsb = (*pixel >> 0) & 1U;
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 7);
+}
+
 int max_chars(){
   /*Find the maximum ammount of charachters (not including the null terminator) that the image is able to store*/
   return ((SIZEX*SIZEY)/8)-1;
@@ -122,10 +128,22 @@ void decode(unsigned char inp[SIZEX][SIZEY]){
   }
 }
 
+void pic_static(unsigned char inp[SIZEX][SIZEY], unsigned char out[SIZEX][SIZEY]){
+  /*Takes in an input image (inp) and changes pixels to only the last 2 lsb's*/
+  for(int y=0; y<SIZEY; y++){//image traversal
+    for(int x=0; x<SIZEY; x++){
+      out[y][x]=inp[y][x];//set the pixel data
+      static_finder(&out[y][x]);//keep only the last two LSB
+    }
+  }
+  return;
+}
+
 int main() {
   char string[SIZEY*SIZEX];
   unsigned char data[SIZEY][SIZEX];
   unsigned char encoded[SIZEY][SIZEX];
+  unsigned char picture_static[SIZEY][SIZEX];
   int res=write_to_string(string);
   if(res==-1){//file length issues
     printf("Your file has too many characthers please shorten the text\n");
@@ -135,8 +153,11 @@ int main() {
     printf("text_to_hide.txt cannot be found\n");
     return 0;
   }
+
   readPGM("cover.pgm", &data[0][0]);
-  readPGM("cover.pgm", &encoded[0][0]);
+  readPGM("steg.pgm", &encoded[0][0]);
+  readPGM("cover.pgm", &picture_static[0][0]);
+
   int num=0;
   printf("*****************************\n");
   printf("Hide text with steganography!\n");
@@ -148,14 +169,18 @@ int main() {
   printf("-cover.pgm and steg.pgm must be the same image of size 512 x 512 px\n");
   printf("-cover.pgm is your image which will not be changed\n");
   printf("-steg.pgm is the image which your text will be hidden\n");
+  printf("-static.pgm will let you see if there is data hidden in an image\n");
+  printf("-When wiping an image, you need it's text to be the the same as text_to_hide.txt \n");
   printf("*****************************\n");
   printf("\n");
-  while(num!=2){
+  while(num!=4){
     printf("-----------------------------\n");
     printf("Please type in your choice\n");
-    printf("0 - Write hidden text into image\n");
+    printf("0 - Write/wipe hidden text to/from an image\n[Writes on empty images and wipes images with hidden info]\n");
     printf("1 - Pull hidden text from image\n");
-    printf("2 - Exit program\n");
+    printf("2 - View cover image static\n");
+    printf("3 - View steg image static\n");
+    printf("4 - Exit program and save\n");
     printf("-----------------------------\n");
     printf("Enter choice:");
     scanf("%d",&num);
@@ -163,11 +188,23 @@ int main() {
     printf("-----------------------------\n");
 
     if(num==0){//encode image
-      printf("The text file has been put in the image succesfully!\n");
       encode(data,encoded,string);
+      printf("The text file has been put in the image succesfully!\n");
+      writePGM("steg.pgm", &encoded[0][0]);
     }
     if(num==1){//decode image
+      readPGM("steg.pgm", &encoded[0][0]);
       decode(encoded);
+    }
+    if(num==2){//cover image static
+      pic_static(data,picture_static);
+      printf("Static written to static.pgm!\n");
+      writePGM("static.pgm", &picture_static[0][0]);
+    }
+    if(num==3){//steg image static
+      pic_static(encoded,picture_static);
+      printf("Static written to static.pgm!\n");
+      writePGM("static.pgm", &picture_static[0][0]);
     }
   }
   writePGM("steg.pgm", &encoded[0][0]);
