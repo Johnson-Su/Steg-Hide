@@ -28,6 +28,18 @@ void static_finder(unsigned char *pixel){
   *pixel ^= (-lsb ^ *pixel) & (1UL << 7);
 }
 
+void pure_static(unsigned char *pixel){
+  int lsb;
+  lsb = (*pixel >> 0) & 1U;
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 1);
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 2);
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 3);
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 4);
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 5);
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 6);
+  *pixel ^= (-lsb ^ *pixel) & (1UL << 7);
+}
+
 int max_chars(){
   /*Find the maximum ammount of charachters (not including the null terminator) that the image is able to store*/
   return ((SIZEX*SIZEY)/8)-1;
@@ -129,11 +141,22 @@ void decode(unsigned char inp[SIZEX][SIZEY]){
 }
 
 void pic_static(unsigned char inp[SIZEX][SIZEY], unsigned char out[SIZEX][SIZEY]){
-  /*Takes in an input image (inp) and changes pixels to only the last 2 lsb's*/
+  /*Takes in an input image (inp) and changes pixels to emphasise the lsb*/
   for(int y=0; y<SIZEY; y++){//image traversal
     for(int x=0; x<SIZEX; x++){
       out[y][x]=inp[y][x];//set the pixel data
       static_finder(&out[y][x]);//keep only the last two LSB
+    }
+  }
+  return;
+}
+
+void only_static(unsigned char inp[SIZEX][SIZEY], unsigned char out[SIZEX][SIZEY]){
+  /*Takes in an input image (inp) and changes pixels to only the lsb*/
+  for(int y=0; y<SIZEY; y++){//image traversal
+    for(int x=0; x<SIZEX; x++){
+      out[y][x]=inp[y][x];//set the pixel data
+      pure_static(&out[y][x]);//keep only the last two LSB
     }
   }
   return;
@@ -158,7 +181,7 @@ int main() {
   readPGM("steg.pgm", &encoded[0][0]);
   readPGM("cover.pgm", &picture_static[0][0]);
 
-  int num=0;
+  int num=0, innernum=0;
   printf("*****************************\n");
   printf("Hide text with steganography!\n");
   printf("Made by: Johnson Su\n");
@@ -197,14 +220,46 @@ int main() {
       decode(encoded);
     }
     if(num==2){//cover image static
-      pic_static(data,picture_static);
-      printf("Static written to static.pgm!\n");
+      printf("1 - Static emphasized\n");
+      printf("2 - Only static\n");
+      printf("Enter choice:\n");
+      scanf("%d",&innernum);
+      getchar();
+      printf("-----------------------------\n");
+      if(innernum==1){
+        pic_static(data,picture_static);
+        printf("Static written to static.pgm!\n");
+      }
+      else if(innernum==2){
+        only_static(data,picture_static);
+        printf("Static written to static.pgm!\n");
+      }
+      else{
+        printf("Not a valid number\n");
+      }
       writePGM("static.pgm", &picture_static[0][0]);
+      innernum=0;
     }
     if(num==3){//steg image static
-      pic_static(encoded,picture_static);
-      printf("Static written to static.pgm!\n");
+      printf("1 - Static emphasized\n");
+      printf("2 - Only static\n");
+      printf("Enter choice:\n");
+      scanf("%d",&innernum);
+      getchar();
+      printf("-----------------------------\n");
+      if(innernum==1){
+        pic_static(encoded,picture_static);
+        printf("Static written to static.pgm!\n");
+      }
+      else if(innernum==2){
+        only_static(encoded,picture_static);
+        printf("Static written to static.pgm!\n");
+      }
+      else{
+        printf("Not a valid number\n");
+      }
       writePGM("static.pgm", &picture_static[0][0]);
+      innernum=0;
     }
   }
   writePGM("steg.pgm", &encoded[0][0]);
