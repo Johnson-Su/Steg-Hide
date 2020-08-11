@@ -50,6 +50,10 @@ This program changes the LSB (least significant bit) which for the example would
 
 If we wanted to write in the character 'A' (0100 0001) into the image we would need 8 pixels as each pixel can store 1 bit of hidden data.
 
+![](https://user-images.githubusercontent.com/65415367/89935191-06fa4680-dbcf-11ea-90fa-9dcb042567cb.png)
+
+![](https://user-images.githubusercontent.com/65415367/89935193-08c40a00-dbcf-11ea-9b4d-34bf887e13d8.png)
+
 ## Credits and Acknowledgments
 Credit to [Mustafa Quraish](https://github.com/mustafaquraish) for the development of imtUtils.c and for cover.pgm and steg.pgm.</br> </br>
 Inspired by content covered in CSC A48 - Intro to Computer Science II, Summer 2020
